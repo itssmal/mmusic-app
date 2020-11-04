@@ -8,12 +8,28 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {IonicStorageModule} from "@ionic/storage";
+import {AppInterceptor} from "./core/interceptors/interceptor";
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+      BrowserModule,
+      IonicModule.forRoot({
+        mode: 'ios'
+      }),
+      AppRoutingModule,
+      HttpClientModule,
+      IonicStorageModule.forRoot()
+  ],
   providers: [
+  {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppInterceptor,
+      multi: true
+  },
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }

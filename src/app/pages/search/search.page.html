@@ -1,0 +1,26 @@
+<ion-content>
+
+    <form [formGroup]="searchForm">
+        <ion-row>
+            <ion-col>
+                <h1 class="ion-margin">Search</h1>
+            </ion-col>
+            <ion-col class="ion-align-self-center">
+                <ion-select multiple="true" formControlName="types">
+                    <ion-select-option value="artist">Artist</ion-select-option>
+                    <ion-select-option value="track">Track</ion-select-option>
+                    <ion-select-option value="album">Album</ion-select-option>
+                </ion-select>
+            </ion-col>
+        </ion-row>
+
+        <div class="ion-margin-horizontal">
+            <ion-searchbar animated autofocus="autofocus" color="primary"
+                           formControlName="query" debounce="500" (ionChange)="search()"
+            ></ion-searchbar>
+            <ion-list *ngIf="">
+                <ion-item></ion-item>
+            </ion-list>
+        </div>
+    </form>
+</ion-content>
