@@ -1,0 +1,56 @@
+<ion-content *ngIf="!isLoading; else loader">
+  <ion-grid *ngIf="album">
+
+      <ion-row class="ion-justify-content-center ion-text-center" style="flex-direction: column">
+        <ion-col size="12">
+          <h1 class="ion-no-margin ion-margin-bottom">{{album.name}}</h1>
+          <img [src]="album?.images[1]?.url">
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-text-center ion-margin-top" style="flex-direction: column">
+        <a [href]="album.external_urls.spotify" target="_blank">
+          <img src="assets/imgs/spotify-btn.png" width="100px">
+        </a>
+      </ion-row>
+      <ion-row class="ion-margin-horizontal" style="flex-direction: column">
+        <ion-text color="primary">
+          <h1 style="font-size: 3em">Tracks</h1>
+          <hr style="background-color: #3a7be0; color: #3a7be0">
+        </ion-text>
+        <ion-list>
+          <ion-item *ngFor="let track of album.tracks.items" (click)="openTrack(track)" style="cursor: pointer">
+              <ion-label>
+                <div style="display: flex; flex-direction: row; justify-content: space-between">
+                  <div>
+                    <h2>{{track.name}}</h2>
+                    <p>{{getTrackArtists(track).join(', ')}}</p>
+                  </div>
+                  <p style="align-self: center">{{millisecondsToMinutes(track.duration_ms)}}</p>
+                </div>
+              </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-text class="ion-margin-top">
+          <p class="ion-text-center ion-no-margin" style="color: #323232">{{album.label}}</p>
+          <p class="ion-text-center ion-no-margin" style="color: #323232">{{album.release_date | date}}</p>
+        </ion-text>
+      </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-slide *ngIf="!album">
+  <div class="slide">
+    <img src="./assets/icon/favicon.png"/>
+    <h3 style="color: white">First select the album from search or top charts</h3>
+    <div style="display: flex; flex-direction: column">
+      <a routerLink="/search">Go to Search</a>
+      <a routerLink="/charts">Go to Top Charts</a>
+    </div>
+  </div>
+</ion-slide>
+
+<ng-template #loader>
+  <div class="ion-text-center">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+</ng-template>

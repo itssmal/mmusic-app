@@ -1,0 +1,53 @@
+<ion-content *ngIf="!isLoading; else loader">
+  <ion-grid *ngIf="playlist">
+
+    <ion-row class="ion-justify-content-center ion-text-center" style="flex-direction: column">
+      <ion-col size="12">
+        <h1 class="ion-no-margin ion-margin-bottom">{{playlist.name}}</h1>
+        <img [src]="playlist.images[0].url">
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-text-center ion-margin-top" style="flex-direction: column">
+      <a [href]="playlist.external_urls.spotify" target="_blank">
+        <img src="assets/imgs/spotify-btn.png" width="100px">
+      </a>
+    </ion-row>
+    <ion-row class="ion-margin-horizontal" style="flex-direction: column">
+      <ion-text color="primary">
+        <h1 style="font-size: 3em">Tracks</h1>
+        <hr style="background-color: #3a7be0; color: #3a7be0">
+      </ion-text>
+      <ion-list>
+        <ion-item *ngFor="let item of playlist.tracks.items" (click)="openTrack(item.track)" style="cursor: pointer">
+          <ion-label>
+            <div style="display: flex; flex-direction: row; justify-content: space-between">
+              <div>
+                <h2 [style.color]="item.primary_color">{{item.track.name}}</h2>
+                <p>{{getTrackArtists(item.track).join(', ')}}</p>
+              </div>
+              <p style="align-self: center">{{millisecondsToMinutes(item.track.duration_ms)}}</p>
+            </div>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-slide *ngIf="!playlist">
+  <div class="slide">
+    <img src="./assets/icon/favicon.png"/>
+    <h3 style="color: white">First select the playlist from search or top charts</h3>
+    <div style="display: flex; flex-direction: column">
+      <a routerLink="/search">Go to Search</a>
+      <a routerLink="/charts">Go to Top Charts</a>
+    </div>
+  </div>
+</ion-slide>
+
+<ng-template #loader>
+  <div class="ion-text-center">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+</ng-template>
+

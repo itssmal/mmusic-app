@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let playlist of playlists" (click)="openPlaylist(playlist)">
+      <ion-col size="4">
+        <ion-img [src]="playlist.images[0].url"></ion-img>
+      </ion-col>
+      <ion-col style="display: flex; flex-direction: column">
+        <ion-text>
+          <h2 class="ion-no-margin">{{playlist.name}}</h2>
+          <p class="ion-no-margin ion-margin-top ion-align-self-end">{{playlist.description.length > 50 ? (playlist.description | slice:0:50) + '..' : playlist.description }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

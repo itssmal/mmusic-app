@@ -11,6 +11,7 @@ import {SearchResponse} from "../../core/models/search.interface";
 export class SearchPage implements OnInit {
 
   public searchResults: SearchResponse
+  public isLoading = false
 
   public searchForm = new FormGroup({
     query: new FormControl(''),
@@ -32,8 +33,15 @@ export class SearchPage implements OnInit {
   }
 
   public search() {
-    this.searchService.search(this.query, this.types).subscribe(res => {
-      console.log(res)
-    })
+    if (this.query.length > 0) {
+      this.isLoading = true
+      this.searchService.search(this.query, this.types).subscribe(res => {
+        this.searchResults = res
+        this.isLoading = false
+        console.log(res)
+      })
+    } else {
+      this.searchResults = null
+    }
   }
 }

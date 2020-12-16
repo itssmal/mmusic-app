@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ChartsPageRoutingModule } from './charts-routing.module';
 
 import { ChartsPage } from './charts.page';
+import {CategoryComponent} from "./category/category.component";
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ChartsPage } from './charts.page';
     IonicModule,
     ChartsPageRoutingModule
   ],
-  declarations: [ChartsPage]
+  declarations: [ChartsPage, CategoryComponent]
 })
 export class ChartsPageModule {}

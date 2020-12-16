@@ -1,0 +1,54 @@
+<ion-content *ngIf="!isLoading; else loader">
+  <ion-grid *ngIf="artist">
+    <ion-row>
+      <ion-col size="6">
+        <img [src]="artist.images[0].url">
+      </ion-col>
+      <ion-col size="6" class="ion-text-center">
+        <h1>{{artist.name}}</h1>
+        <p>{{genres}}</p>
+        <a [href]="artist.external_urls.spotify" target="_blank">
+          <img src="assets/imgs/spotify-btn.png" width="100px">
+        </a>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="topTracks">
+        <ion-col class="ion-margin-horizontal"  *ngIf="topTracks">
+          <ion-row>
+            <h2>Top Tracks</h2>
+          </ion-row>
+          <ion-row>
+            <app-track [tracks]="topTracks" style="width: 100%"></app-track>
+          </ion-row>
+        </ion-col>
+        <ion-col class="ion-margin-horizontal" *ngIf="albums">
+          <ion-row>
+            <h2>Albums</h2>
+          </ion-row>
+          <ion-row>
+            <app-album [albums]="albums"></app-album>
+          </ion-row>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-slide *ngIf="!artist">
+  <div class="slide">
+    <img src="./assets/icon/favicon.png"/>
+    <h3 style="color: white">First select the artist from search or top charts</h3>
+    <div style="display: flex; flex-direction: column">
+      <a routerLink="/search">Go to Search</a>
+      <a routerLink="/charts">Go to Top Charts</a>
+    </div>
+  </div>
+</ion-slide>
+
+
+<ng-template #loader>
+  <div class="ion-text-center">
+    <ion-spinner name="dots"></ion-spinner>
+  </div>
+</ng-template>

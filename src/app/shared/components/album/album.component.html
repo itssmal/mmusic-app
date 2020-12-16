@@ -1,0 +1,9 @@
+<ion-row class="ion-justify-content-center" *ngIf="albums">
+  <ion-col size="6" size-sm="2" class="ion-justify-content-center" *ngFor="let album of albums">
+    <div class="album-card" (click)="openDetails(album.id)">
+      <img [src]="album.images[0]?.url || '../../assets/imgs/artist-icon.png'">
+      <a href="">{{album.name}}</a>
+      <p class="ion-no-margin">{{getAlbumArtists(album).join(', ')}}</p>
+    </div>
+  </ion-col>
+</ion-row>

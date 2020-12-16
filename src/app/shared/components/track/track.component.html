@@ -1,0 +1,13 @@
+<ion-list *ngIf="tracks">
+  <a *ngFor="let track of tracks" style="cursor: pointer" (click)="openDetails(track)">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img [src]="track.album.images[0].url" alt="">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{track.name}}</h2>
+        <p>{{track.artists[0].name}}</p>
+      </ion-label>
+    </ion-item>
+  </a>
+</ion-list>

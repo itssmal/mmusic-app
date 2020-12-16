@@ -1,9 +1,25 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>charts</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding-horizontal">
 
-<ion-content>
+    <h1>New Releases</h1>
+
+    <ion-segment scrollable="true" style="height: 200px; background-color: transparent">
+      <ion-col *ngFor="let album of albums" (click)="openAlbum(album)">
+        <ion-img [src]="album.images[0].url"></ion-img>
+        <ion-text color="primary">
+          <p>{{ album.name.length > 15 ? (album.name | slice:0:15) + '..' : album.name }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-segment>
+
+    <h1>Categories</h1>
+
+    <ion-segment scrollable="true" style="height: 200px; background-color: transparent">
+      <ion-col *ngFor="let category of categories" (click)="openCategory(category)">
+        <ion-img [src]="category.icons[0].url"></ion-img>
+        <ion-text color="primary">
+          <p>{{ category.name }}</p>
+        </ion-text>
+      </ion-col>
+    </ion-segment>
 
 </ion-content>

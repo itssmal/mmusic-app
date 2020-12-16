@@ -3,10 +3,10 @@
     <form [formGroup]="searchForm">
         <ion-row>
             <ion-col>
-                <h1 class="ion-margin">Search</h1>
+                <h1 class="ion-margin-horizontal ion-margin-top">Search</h1>
             </ion-col>
             <ion-col class="ion-align-self-center">
-                <ion-select multiple="true" formControlName="types">
+                <ion-select multiple="true" formControlName="types" (ionChange)="search()">
                     <ion-select-option value="artist">Artist</ion-select-option>
                     <ion-select-option value="track">Track</ion-select-option>
                     <ion-select-option value="album">Album</ion-select-option>
@@ -18,9 +18,45 @@
             <ion-searchbar animated autofocus="autofocus" color="primary"
                            formControlName="query" debounce="500" (ionChange)="search()"
             ></ion-searchbar>
-            <ion-list *ngIf="">
-                <ion-item></ion-item>
-            </ion-list>
         </div>
     </form>
+
+    <div class="ion-padding-horizontal" *ngIf="!isLoading; else loader">
+        <ion-grid *ngIf="searchResults">
+            <div *ngIf="searchResults.tracks">
+                <h2>Tracks</h2>
+                <ion-row *ngIf="searchResults.tracks.items.length > 0; else empty">
+                    <app-track [tracks]="searchResults.tracks.items" style="width: 100%"></app-track>
+                </ion-row>
+            </div>
+            <div *ngIf="searchResults.artists">
+                <h2>Artists</h2>
+                <ion-row *ngIf="searchResults.artists.items.length > 0; else empty">
+                    <ion-col size="6" size-sm="2" class="ion-justify-content-center" *ngFor="let artist of searchResults.artists.items">
+                        <app-artist [artist]="artist"></app-artist>
+                    </ion-col>
+                </ion-row>
+            </div>
+            <hr>
+            <div *ngIf="searchResults.albums">
+                <h2>Albums</h2>
+                <ion-row class="ion-justify-content-center" *ngIf="searchResults.albums.items.length > 0; else empty">
+                    <app-album [albums]="searchResults.albums.items"></app-album>
+                </ion-row>
+            </div>
+        </ion-grid>
+    </div>
+
 </ion-content>
+
+<ng-template #loader >
+    <div class="ion-text-center">
+        <ion-spinner name="dots"></ion-spinner>
+    </div>
+</ng-template>
+
+<ng-template #empty>
+    <div class="ion-text-center">
+        <h3>No Data</h3>
+    </div>
+</ng-template>

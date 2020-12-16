@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from "rxjs";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {map} from "rxjs/operators";
-import {Storage} from "@ionic/storage";
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +9,7 @@ import {Storage} from "@ionic/storage";
 export class AuthService {
   private key = btoa(environment.spotify_creds)
 
-  constructor(private http: HttpClient,
-              private storage: Storage) { }
+  constructor(private http: HttpClient) { }
 
   public auth(): Observable<any> {
     const headers = {

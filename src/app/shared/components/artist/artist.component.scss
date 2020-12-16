@@ -1,0 +1,13 @@
+.artist-card {
+  display: flex;
+  flex-direction: column;
+}
+
+ion-img {
+  width: 10em;
+  height: 10em;
+}
+ ion-img::part(image) {
+   background-color: #3a7be0;
+   object-fit: cover;
+ }
